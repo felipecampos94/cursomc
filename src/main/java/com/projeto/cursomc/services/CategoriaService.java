@@ -12,6 +12,7 @@ import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
 
 import com.projeto.cursomc.domain.Categoria;
+import com.projeto.cursomc.dto.CategoriaDTO;
 import com.projeto.cursomc.repositories.CategoriaRepository;
 import com.projeto.cursomc.services.exceptions.DataIntegrityException;
 import com.projeto.cursomc.services.exceptions.ObjectNotFoundException;
@@ -56,6 +57,10 @@ public class CategoriaService {
 
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+
+	public Categoria fromDto(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 
 }
