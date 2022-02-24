@@ -12,6 +12,7 @@ import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
 
 import com.projeto.cursomc.domain.Categoria;
+import com.projeto.cursomc.domain.Cliente;
 import com.projeto.cursomc.dto.CategoriaDTO;
 import com.projeto.cursomc.repositories.CategoriaRepository;
 import com.projeto.cursomc.services.exceptions.DataIntegrityException;
@@ -39,8 +40,9 @@ public class CategoriaService {
 	}
 
 	public Categoria update(Categoria obj) {
-		find(obj.getId());
-		return repo.save(obj);
+		Categoria newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 
 	public void delete(Integer id) {
@@ -61,6 +63,11 @@ public class CategoriaService {
 
 	public Categoria fromDto(CategoriaDTO objDto) {
 		return new Categoria(objDto.getId(), objDto.getNome());
+	}
+
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
+
 	}
 
 }
